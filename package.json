@@ -1,12 +1,13 @@
 {
-  "name": "prop-types",
-  "version": "15.6.1",
-  "description": "Runtime type checking for React props and similar objects.",
+  "name": "es-types",
+  "version": "15.6.1-7",
+  "description": "Runtime type checking for React props and similar objects. Fork of facebooks prop-types.",
   "main": "index.js",
   "license": "MIT",
   "files": [
     "LICENSE",
     "README.md",
+    "manualCheckPropTypes.js",
     "checkPropTypes.js",
     "factory.js",
     "factoryWithThrowingShims.js",
@@ -16,7 +17,7 @@
     "prop-types.min.js",
     "lib"
   ],
-  "repository": "facebook/prop-types",
+  "repository": "topres/prop-types",
   "keywords": [
     "react"
   ],

@@ -51,6 +51,7 @@ module.exports = function() {
     exact: getShim
   };
 
+  ReactPropTypes.manualCheckPropTypes = emptyFunction;
   ReactPropTypes.checkPropTypes = emptyFunction;
   ReactPropTypes.PropTypes = ReactPropTypes;
 

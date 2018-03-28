@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== 'production') {
  * @param {?Function} getStack Returns the component stack.
  * @private
  */
-function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
+function manualCheckPropTypes(typeSpecs, values, location, componentName, getStack) {
   var result = {
     valid: true,
     error: null,
@@ -50,27 +50,15 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
         var logWarning = !error || error instanceof Error;
 
         if(error){
-          result = {
+          var stack = error instanceof Error
+            ? (getStack && getStack()) || null
+            : null;
+
+          return {
             valid: false,
-            error: error,
+            error: (error && error.message) || error,
+            stack
           };
-        }
-        warning(logWarning, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error);
-
-        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
-          // Only monitor this failure once because there tends to be a lot of the
-          // same error.
-          loggedTypeFailures[error.message] = true;
-
-          var stack = getStack ? getStack() : '';
-
-          result = {
-            valid: false,
-            error: error,
-            stack,
-          };
-
-          warning(false, 'Failed %s type: %s%s', location, error.message, stack != null ? stack : '');
         }
       }
     }
@@ -79,4 +67,4 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
   return result;
 }
 
-module.exports = checkPropTypes;
+module.exports = manualCheckPropTypes;
